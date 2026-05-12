@@ -1,0 +1,58 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="pb-3">
+    <h1 class="display-5 mb-1">Dashboard</h1>
+    <p class="text-muted mb-0">PactNET consumer demo &mdash; reading from the fake provider API.</p>
+</div>
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-4">
+        <div class="col">
+            <div class="card text-bg-primary h-100 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-uppercase opacity-75 mb-2">Posts</h6>
+                    <div class="display-4 fw-semibold">@Model.PostCount</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-bg-info h-100 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-uppercase opacity-75 mb-2">Users</h6>
+                    <div class="display-4 fw-semibold">@Model.UserCount</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-bg-secondary h-100 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-uppercase opacity-75 mb-2">Todos</h6>
+                    <div class="display-4 fw-semibold">@Model.TodoCount</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-bg-success h-100 shadow-sm">
+                <div class="card-body">
+                    <h6 class="card-subtitle text-uppercase opacity-75 mb-2">Completed Todos</h6>
+                    <div class="display-4 fw-semibold">@Model.CompletedTodoCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="d-flex flex-wrap gap-2">
+    <a class="btn btn-outline-primary" asp-page="/Posts/Index">Browse Posts</a>
+    <a class="btn btn-outline-info" asp-page="/Users">Browse Users</a>
+    <a class="btn btn-outline-secondary" asp-page="/Todos">Browse Todos</a>
+</div>

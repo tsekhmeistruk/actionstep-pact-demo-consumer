@@ -1,0 +1,43 @@
+@page "/users"
+@model PactDemo.ConsumerWeb.Pages.UsersModel
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="pb-3">
+    <h1 class="display-6 mb-1">Users</h1>
+    <p class="text-muted mb-0">Users loaded from the provider API.</p>
+</div>
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+}
+else if (Model.Users.Count == 0)
+{
+    <div class="alert alert-info" role="alert">No users found.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+        @foreach (var user in Model.Users)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">@user.Name</h5>
+                        <h6 class="card-subtitle text-muted mb-3">@@@user.Username</h6>
+                        <dl class="row mb-0 small">
+                            <dt class="col-4">Email</dt>
+                            <dd class="col-8 text-truncate" title="@user.Email">@user.Email</dd>
+                            <dt class="col-4">Company</dt>
+                            <dd class="col-8">@user.Company.Name</dd>
+                            <dt class="col-4">City</dt>
+                            <dd class="col-8">@user.Address.City</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

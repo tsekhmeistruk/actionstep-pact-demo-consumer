@@ -1,0 +1,48 @@
+@page "/todos"
+@model PactDemo.ConsumerWeb.Pages.TodosModel
+@{
+    ViewData["Title"] = "Todos";
+}
+
+<div class="pb-3">
+    <h1 class="display-6 mb-1">Todos</h1>
+    <p class="text-muted mb-0">Todos loaded from the provider API.</p>
+</div>
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+}
+else if (Model.Todos.Count == 0)
+{
+    <div class="alert alert-info" role="alert">No todos found.</div>
+}
+else
+{
+    <div class="mb-3">
+        <span class="badge text-bg-success me-2">Completed: @Model.CompletedCount</span>
+        <span class="badge text-bg-secondary">Pending: @Model.PendingCount</span>
+    </div>
+
+    <ul class="list-group shadow-sm">
+        @foreach (var todo in Model.Todos)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <span class="text-muted small me-3" style="min-width: 3rem;">#@todo.Id</span>
+                    <span class="@(todo.Completed ? "text-decoration-line-through text-muted" : string.Empty)">
+                        @todo.Title
+                    </span>
+                </div>
+                @if (todo.Completed)
+                {
+                    <span class="badge text-bg-success">Completed</span>
+                }
+                else
+                {
+                    <span class="badge text-bg-secondary">Pending</span>
+                }
+            </li>
+        }
+    </ul>
+}

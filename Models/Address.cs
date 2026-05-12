@@ -1,0 +1,8 @@
+namespace PactDemo.ConsumerWeb.Models;
+
+public class Address
+{
+    public string Street { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public string Zipcode { get; set; } = string.Empty;
+}
