@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PactDemo.Consumer.Tests/PactDemo.Consumer.Tests.csproj" />
+  <Project Path="PactDemo.ConsumerWeb/PactDemo.ConsumerWeb.csproj" />
+</Solution>
