@@ -3,7 +3,10 @@ obj/
 .vs/
 .vscode/
 .idea/
+.claude/
 *.user
 *.suo
 .env
 .DS_Store
+TestResults/
+pacts/
