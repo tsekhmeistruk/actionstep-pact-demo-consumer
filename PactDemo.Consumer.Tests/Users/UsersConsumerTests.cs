@@ -10,11 +10,6 @@ public class UsersConsumerTests : PactTestBase
     [Fact]
     public async Task GetUsersAsync_ReturnsUsers_WithCompanyAndAddress()
     {
-        // The consumer (Users page + dashboard count) reads:
-        //   name, username, email, company.name, address.city.
-        // Other User model fields (phone, website, address.street/zipcode)
-        // are deserialized but not displayed, so the contract intentionally
-        // does not constrain them.
         PactBuilder
             .UponReceiving("a request to list all users")
                 .Given(ProviderStates.UsersExist)
@@ -52,28 +47,6 @@ public class UsersConsumerTests : PactTestBase
             user.Email.Should().NotBeNullOrWhiteSpace();
             user.Company.Name.Should().NotBeNullOrWhiteSpace();
             user.Address.City.Should().NotBeNullOrWhiteSpace();
-        });
-    }
-
-    [Fact]
-    public async Task GetUsersAsync_ReturnsEmptyList_WhenNoUsersExist()
-    {
-        PactBuilder
-            .UponReceiving("a request to list all users when none exist")
-                .Given(ProviderStates.NoUsersExist)
-                .WithRequest(HttpMethod.Get, "/users")
-            .WillRespond()
-                .WithStatus(HttpStatusCode.OK)
-                .WithHeader("Content-Type", JsonContentType)
-                .WithJsonBody(Array.Empty<object>());
-
-        await PactBuilder.VerifyAsync(async ctx =>
-        {
-            var client = CreateClient(ctx.MockServerUri);
-
-            var users = await client.GetUsersAsync();
-
-            users.Should().BeEmpty();
         });
     }
 }

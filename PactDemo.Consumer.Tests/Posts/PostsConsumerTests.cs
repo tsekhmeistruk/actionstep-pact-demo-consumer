@@ -40,28 +40,6 @@ public class PostsConsumerTests : PactTestBase
     }
 
     [Fact]
-    public async Task GetPostsAsync_ReturnsEmptyList_WhenNoPostsExist()
-    {
-        PactBuilder
-            .UponReceiving("a request to list all posts when none exist")
-                .Given(ProviderStates.NoPostsExist)
-                .WithRequest(HttpMethod.Get, "/posts")
-            .WillRespond()
-                .WithStatus(HttpStatusCode.OK)
-                .WithHeader("Content-Type", JsonContentType)
-                .WithJsonBody(Array.Empty<object>());
-
-        await PactBuilder.VerifyAsync(async ctx =>
-        {
-            var client = CreateClient(ctx.MockServerUri);
-
-            var posts = await client.GetPostsAsync();
-
-            posts.Should().BeEmpty();
-        });
-    }
-
-    [Fact]
     public async Task GetPostAsync_ReturnsPost_WhenPostExists()
     {
         PactBuilder

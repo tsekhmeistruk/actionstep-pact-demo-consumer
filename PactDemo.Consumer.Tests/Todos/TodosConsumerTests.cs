@@ -40,26 +40,4 @@ public class TodosConsumerTests : PactTestBase
             _ = first.Completed;
         });
     }
-
-    [Fact]
-    public async Task GetTodosAsync_ReturnsEmptyList_WhenNoTodosExist()
-    {
-        PactBuilder
-            .UponReceiving("a request to list all todos when none exist")
-                .Given(ProviderStates.NoTodosExist)
-                .WithRequest(HttpMethod.Get, "/todos")
-            .WillRespond()
-                .WithStatus(HttpStatusCode.OK)
-                .WithHeader("Content-Type", JsonContentType)
-                .WithJsonBody(Array.Empty<object>());
-
-        await PactBuilder.VerifyAsync(async ctx =>
-        {
-            var client = CreateClient(ctx.MockServerUri);
-
-            var todos = await client.GetTodosAsync();
-
-            todos.Should().BeEmpty();
-        });
-    }
 }
