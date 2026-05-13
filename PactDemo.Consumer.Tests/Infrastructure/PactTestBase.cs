@@ -7,7 +7,7 @@ public abstract class PactTestBase
 {
     protected const string ConsumerName = "PactDemo.ConsumerWeb";
     protected const string ProviderName = "FakeRestApi";
-    protected const string JsonContentType = "application/json; charset=utf-8";
+    protected const string JsonContentType = "application/json";
     protected const string EmailRegex = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
     protected IPactBuilderV3 PactBuilder { get; }
